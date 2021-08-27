@@ -39,7 +39,6 @@ const FormWrapper: React.FC<BasicFormProps> = ({
       alert('Please fill in required fields.');
       return;
     }
-
     //if (errors && errors.isValid === true) {
     if (errors && errors.messages?.length === 0) {
       alert('Success! Form was submitted');

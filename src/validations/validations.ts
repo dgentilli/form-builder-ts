@@ -1,4 +1,3 @@
-import { required } from 'yargs';
 import { Field } from '../types/globalTypes';
 const validator = require('validator');
 const isEmpty = require('is-empty');
@@ -31,31 +30,25 @@ export function validateFormInput(
       } else if (!validator.isEmail(data.email)) {
         messages.push('Invalid email format');
       }
-    } else if (data.email?.length && !validator.isEmail(data.email)) {
+    } else if (
+      validator.isEmpty(data.email) ||
+      !validator.isEmail(data.email)
+    ) {
       messages.push('Invalid email format');
     }
-    // else if (!validator.isEmail(data.email)) {
-    //   messages.push('Invalid email format');
-    // }
 
-    if (requiredFields?.includes(Field.Password)) {
-      if (validator.isEmpty(data.password)) {
-        messages.push('Password field is required');
-      }
+    //Password Validation
+    if (
+      requiredFields?.includes(Field.Password) &&
+      validator.isEmpty(data.password)
+    ) {
+      messages.push('Password field is required');
     } else if (
-      data.password?.length &&
+      requiredFields?.includes(Field.Password) &&
       !validator.isLength(data.password, { min: 8, max: 20 })
     ) {
       messages.push('Password must be between 8 and 20 characters');
     }
-
-    //Password validation
-    // if (validator.isEmpty(data.password)) {
-    //   messages.push('Password field is required');
-    // }
-    //   if (!validator.isLength(data.password, { min: 8, max: 20 })) {
-    //     messages.push('Password must be between 8 and 20 characters');
-    //   }
   }
 
   return {

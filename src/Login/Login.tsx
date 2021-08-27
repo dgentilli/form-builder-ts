@@ -9,7 +9,7 @@ const Login = () => {
       <h2>Login</h2>
       <FormWrapper
         fields={[Field.Email, Field.Password]}
-        validations={[Field.Email, Field.Password]}
+        requiredFields={[Field.Email, Field.Password]}
       />
     </div>
   );

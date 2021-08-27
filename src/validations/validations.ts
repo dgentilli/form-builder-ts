@@ -1,3 +1,5 @@
+import { required } from 'yargs';
+import { Field } from '../types/globalTypes';
 const validator = require('validator');
 const isEmpty = require('is-empty');
 
@@ -6,7 +8,10 @@ interface FormData {
   password?: string;
 }
 
-export function validateFormInput(data: FormData | null) {
+export function validateFormInput(
+  data: FormData | null,
+  requiredFields: Field[] | undefined
+) {
   let messages: string[] = [];
 
   /**The validator library only works on strings.
@@ -20,19 +25,37 @@ export function validateFormInput(data: FormData | null) {
     data.password = !isEmpty(data.password) ? data.password : '';
 
     //Email validation
-    if (validator.isEmpty(data.email)) {
-      messages.push('Email field is required');
-    } else if (!validator.isEmail(data.email)) {
+    if (requiredFields?.includes(Field.Email)) {
+      if (validator.isEmpty(data.email)) {
+        messages.push('Email field is required');
+      } else if (!validator.isEmail(data.email)) {
+        messages.push('Invalid email format');
+      }
+    } else if (data.email?.length && !validator.isEmail(data.email)) {
       messages.push('Invalid email format');
+    }
+    // else if (!validator.isEmail(data.email)) {
+    //   messages.push('Invalid email format');
+    // }
+
+    if (requiredFields?.includes(Field.Password)) {
+      if (validator.isEmpty(data.password)) {
+        messages.push('Password field is required');
+      }
+    } else if (
+      data.password?.length &&
+      !validator.isLength(data.password, { min: 8, max: 20 })
+    ) {
+      messages.push('Password must be between 8 and 20 characters');
     }
 
     //Password validation
-    if (validator.isEmpty(data.password)) {
-      messages.push('Password field is required');
-    }
-    if (!validator.isLength(data.password, { min: 8, max: 20 })) {
-      messages.push('Password must be between 8 and 20 characters');
-    }
+    // if (validator.isEmpty(data.password)) {
+    //   messages.push('Password field is required');
+    // }
+    //   if (!validator.isLength(data.password, { min: 8, max: 20 })) {
+    //     messages.push('Password must be between 8 and 20 characters');
+    //   }
   }
 
   return {

@@ -1,7 +1,14 @@
 import React from 'react';
+import FormWrapper from '../form/FormWrapper';
+import { Field } from '../types/globalTypes';
 
 const PasswordResetRequest = () => {
-  return <div>Reset Password?</div>;
+  return (
+    <div>
+      <h2>Reset Password?</h2>
+      <FormWrapper fields={[Field.Email]} />
+    </div>
+  );
 };
 
 export default PasswordResetRequest;

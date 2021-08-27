@@ -9,4 +9,5 @@ export enum Field {
 export interface BasicFormProps {
   fields: Field[];
   validations?: Field[];
+  requiredFields?: Field[];
 }

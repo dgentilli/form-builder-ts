@@ -15,10 +15,15 @@ export interface Errors {
   messages?: string[];
 }
 
-const FormWrapper: React.FC<BasicFormProps> = ({ fields, validations }) => {
+const FormWrapper: React.FC<BasicFormProps> = ({
+  fields,
+  validations,
+  requiredFields,
+}) => {
   const [data, setData] = useState<FormData>({});
   const [errors, setErrors] = useState<Errors | null>(null);
-
+  console.log({ data });
+  console.log({ errors });
   const handleInputChange =
     (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
       if (event) {
@@ -35,7 +40,8 @@ const FormWrapper: React.FC<BasicFormProps> = ({ fields, validations }) => {
       return;
     }
 
-    if (errors && errors.isValid === true) {
+    //if (errors && errors.isValid === true) {
+    if (errors && errors.messages?.length === 0) {
       alert('Success! Form was submitted');
     } else {
       alert(
@@ -49,14 +55,18 @@ const FormWrapper: React.FC<BasicFormProps> = ({ fields, validations }) => {
   };
 
   useEffect(() => {
-    setErrors(validateFormInput(data));
+    setErrors(validateFormInput(data, requiredFields));
   }, [data]);
 
   return (
     <div>
-      <h3>Form Wrapper</h3>
       {fields.map((item) => (
-        <FormInput key={item} field={item} changeHandler={handleInputChange} />
+        <FormInput
+          key={item}
+          field={item}
+          required={requiredFields?.includes(item) ? true : false}
+          changeHandler={handleInputChange}
+        />
       ))}
       <button onClick={submitForm}>Submit</button>
     </div>

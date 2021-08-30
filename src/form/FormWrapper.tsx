@@ -15,15 +15,10 @@ export interface Errors {
   messages?: string[];
 }
 
-const FormWrapper: React.FC<BasicFormProps> = ({
-  fields,
-  validations,
-  requiredFields,
-}) => {
+const FormWrapper: React.FC<BasicFormProps> = ({ fields, requiredFields }) => {
   const [data, setData] = useState<FormData>({});
   const [errors, setErrors] = useState<Errors | null>(null);
-  console.log({ data });
-  console.log({ errors });
+
   const handleInputChange =
     (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
       if (event) {
@@ -39,7 +34,6 @@ const FormWrapper: React.FC<BasicFormProps> = ({
       alert('Please fill in required fields.');
       return;
     }
-    //if (errors && errors.isValid === true) {
     if (errors && errors.messages?.length === 0) {
       alert('Success! Form was submitted');
     } else {

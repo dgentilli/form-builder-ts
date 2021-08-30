@@ -6,7 +6,7 @@ const PasswordResetRequest = () => {
   return (
     <div>
       <h2>Reset Password?</h2>
-      <FormWrapper fields={[Field.Email]} />
+      <FormWrapper fields={[Field.Email]} requiredFields={[Field.Email]} />
     </div>
   );
 };

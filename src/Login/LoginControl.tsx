@@ -20,7 +20,7 @@ const LoginControl = () => {
   };
 
   return (
-    <div>
+    <div className='form-wrapper'>
       {isUser ? <Login /> : <Signup />}
       <button onClick={toggleIsUser}>{buttonText}</button>
       <p onClick={toggleDisplayReset}>Forgot Password?</p>

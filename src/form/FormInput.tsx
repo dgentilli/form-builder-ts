@@ -12,8 +12,8 @@ const FormInput: React.FC<Props> = ({ field, changeHandler, required }) => {
   let fieldType =
     field === 'password' ? 'password' : field === 'email' ? 'email' : 'text';
   return (
-    <div>
-      <div>
+    <div className='form-input-wrapper'>
+      <div className='form-input-inner'>
         <label>{field}</label>
         <input
           name={field}

@@ -52,7 +52,7 @@ const FormWrapper: React.FC<BasicFormProps> = ({ fields, requiredFields }) => {
   }, [data]);
 
   return (
-    <div>
+    <div className='form-wrapper'>
       {fields.map((item) => (
         <FormInput
           key={item}

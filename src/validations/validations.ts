@@ -5,6 +5,8 @@ const isEmpty = require('is-empty');
 interface FormData {
   email?: string;
   password?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export function validateFormInput(

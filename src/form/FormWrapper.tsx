@@ -10,7 +10,7 @@ interface FormData {
   lastName?: string;
 }
 
-export interface Errors {
+interface Errors {
   isValid?: boolean;
   messages?: string[];
 }

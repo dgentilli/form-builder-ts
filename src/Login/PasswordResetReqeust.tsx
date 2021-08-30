@@ -1,4 +1,3 @@
-import React from 'react';
 import FormWrapper from '../form/FormWrapper';
 import { Field } from '../types/globalTypes';
 

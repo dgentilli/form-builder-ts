@@ -24,14 +24,13 @@ export function validateFormInput(
     data.password = !isEmpty(data.password) ? data.password : '';
 
     //Email validation
-    if (requiredFields?.includes(Field.Email)) {
-      if (validator.isEmpty(data.email)) {
-        messages.push('Email field is required');
-      } else if (!validator.isEmail(data.email)) {
-        messages.push('Invalid email format');
-      }
+    if (
+      requiredFields?.includes(Field.Email) &&
+      validator.isEmpty(data.email)
+    ) {
+      messages.push('Email field is required');
     } else if (
-      validator.isEmpty(data.email) ||
+      requiredFields?.includes(Field.Email) &&
       !validator.isEmail(data.email)
     ) {
       messages.push('Invalid email format');
